@@ -3,7 +3,7 @@
 return [
     [
         'name' => 'Greater Accra',
-        'enabled' => false,
+        'enabled' => true,
     ],
     [
         'name' => 'Ashanti',
@@ -11,35 +11,35 @@ return [
     ],
     [
         'name' => 'Western',
-        'enabled' => false,
+        'enabled' => true,
     ],
     [
         'name' => 'Eastern',
-        'enabled' => false,
+        'enabled' => true,
     ],
     [
         'name' => 'Central',
-        'enabled' => false,
+        'enabled' => true,
     ],
     [
         'name' => 'Northern',
-        'enabled' => false,
+        'enabled' => true,
     ],
     [
         'name' => 'Volta',
-        'enabled' => false,
+        'enabled' => true,
     ],
     [
         'name' => 'Upper East',
-        'enabled' => false,
+        'enabled' => true,
     ],
     [
         'name' => 'Upper West',
-        'enabled' => false,
+        'enabled' => true,
     ],
     [
         'name' => 'Bono',
-        'enabled' => false,
+        'enabled' => true,
     ],
     [
         'name' => 'Ahafo',
@@ -47,7 +47,7 @@ return [
     ],
     [
         'name' => 'Bono East',
-        'enabled' => false,
+        'enabled' => true,
     ],
     [
         'name' => 'Western North',
@@ -55,7 +55,7 @@ return [
     ],
     [
         'name' => 'Oti',
-        'enabled' => false,
+        'enabled' => true,
     ],
     [
         'name' => 'Savannah',
@@ -63,6 +63,6 @@ return [
     ],
     [
         'name' => 'North East',
-        'enabled' => false,
+        'enabled' => true,
     ],
 ];

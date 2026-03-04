@@ -1,5 +1,7 @@
 import { Link } from '@inertiajs/react';
 import { Facebook, Instagram, Mail, Phone, MapPin } from 'lucide-react';
+import { Logo } from './logo';
+
 
 export function EcommerceFooter() {
     return (
@@ -8,9 +10,10 @@ export function EcommerceFooter() {
                 <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
                     {/* Company Info */}
                     <div>
-                        <h3 className="text-[var(--color-deep-blue)] mb-4 text-lg font-bold">
-                            Elite Alfa Ventures
-                        </h3>
+                        <Link href={route('home')} className="mb-4 inline-block">
+                            <Logo imgClassName="h-10" />
+                        </Link>
+
                         <p className="text-[var(--color-brown)] mb-4 text-sm leading-relaxed">
                             Your trusted destination for premium luxury items. We bring you the finest watches, jewelry, bags, and accessories.
                         </p>
@@ -73,23 +76,28 @@ export function EcommerceFooter() {
                     {/* Customer Service */}
                     <div>
                         <h3 className="text-[var(--color-deep-blue)] mb-4 text-lg font-bold">
-                            Customer Service
+                            Policy & Terms
                         </h3>
                         <ul className="space-y-2">
                             <li>
-                                <a href="#" className="text-[var(--color-brown)] text-sm transition-colors hover:text-[var(--color-deep-blue)]">
-                                    Track Order
-                                </a>
+                                <Link href={route('legal.terms')} className="text-[var(--color-brown)] text-sm transition-colors hover:text-[var(--color-deep-blue)]">
+                                    Terms & Conditions
+                                </Link>
                             </li>
                             <li>
-                                <a href="#" className="text-[var(--color-brown)] text-sm transition-colors hover:text-[var(--color-deep-blue)]">
-                                    Shipping Info
-                                </a>
+                                <Link href={route('legal.privacy')} className="text-[var(--color-brown)] text-sm transition-colors hover:text-[var(--color-deep-blue)]">
+                                    Privacy Policy
+                                </Link>
                             </li>
                             <li>
-                                <a href="#" className="text-[var(--color-brown)] text-sm transition-colors hover:text-[var(--color-deep-blue)]">
-                                    Help Center
-                                </a>
+                                <Link href={route('legal.acceptable-use')} className="text-[var(--color-brown)] text-sm transition-colors hover:text-[var(--color-deep-blue)]">
+                                    Acceptable Use
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href={route('legal.shipping-returns')} className="text-[var(--color-brown)] text-sm transition-colors hover:text-[var(--color-deep-blue)]">
+                                    Shipping & Returns
+                                </Link>
                             </li>
                         </ul>
                     </div>
