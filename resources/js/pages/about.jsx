@@ -2,7 +2,7 @@ import { Head } from '@inertiajs/react';
 import EcommerceLayout from '@/layouts/ecommerce-layout';
 import { Shield, Award, Users, Heart, CheckCircle } from 'lucide-react';
 import { WhyChooseUs } from '@/components/why-choose-us';
-import { EcommerceFooter } from '@/components/ecommerce-footer';
+
 
 export default function About() {
     const values = [
@@ -160,8 +160,7 @@ export default function About() {
             {/* Why Choose Us Section */}
             <WhyChooseUs />
 
-            {/* Footer */}
-            <EcommerceFooter />
+
         </EcommerceLayout>
     );
 }

@@ -111,6 +111,25 @@ Route::get('/faq', function () {
     return \Inertia\Inertia::render('faq');
 })->name('faq');
 
+Route::prefix('legal')->name('legal.')->group(function () {
+    Route::get('/terms', function () {
+        return \Inertia\Inertia::render('legal/terms');
+    })->name('terms');
+
+    Route::get('/privacy', function () {
+        return \Inertia\Inertia::render('legal/privacy');
+    })->name('privacy');
+
+    Route::get('/acceptable-use', function () {
+        return \Inertia\Inertia::render('legal/acceptable-use');
+    })->name('acceptable-use');
+
+    Route::get('/shipping-returns', function () {
+        return \Inertia\Inertia::render('legal/shipping-returns');
+    })->name('shipping-returns');
+});
+
+
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
         return redirect()->route('account.orders.index');

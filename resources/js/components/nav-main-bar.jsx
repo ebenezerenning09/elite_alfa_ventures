@@ -5,6 +5,8 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import useCartStore from '@/stores/cart-store';
 import { NavSearchBar } from './nav-search-bar';
 import { NavMobileMenu } from './nav-mobile-menu';
+import { Logo } from './logo';
+
 
 export function NavMainBar({ isSearchOpen, setIsSearchOpen, searchQuery, setSearchQuery, cartCount: propCartCount }) {
     const { auth } = usePage().props;
@@ -15,10 +17,9 @@ export function NavMainBar({ isSearchOpen, setIsSearchOpen, searchQuery, setSear
         <div className="flex h-20 items-center justify-between">
             {/* Logo */}
             <Link href={route('home')} className="flex items-center">
-                <h1 className="text-[var(--color-deep-blue)] text-2xl font-bold tracking-tight">
-                    Elite Alfa Ventures
-                </h1>
+                <Logo imgClassName="h-14 md:h-16" />
             </Link>
+
 
             {/* Search Bar - Desktop */}
             <div className="hidden flex-1 max-w-2xl mx-8 lg:block">
