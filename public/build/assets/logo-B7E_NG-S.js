@@ -1,0 +1,1 @@
+import{j as e}from"./app-ysKdRuWA.js";function n({className:t="",imgClassName:s="",...o}){return e.jsx("div",{className:`flex items-center ${t}`,...o,children:e.jsx("img",{src:"/LOGO/logo.png",alt:"Elite Alfa Ventures",className:`h-12 w-auto object-contain ${s}`})})}export{n as L};

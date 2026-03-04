@@ -58,7 +58,7 @@ export default function Home({ products }) {
                         </h1>
 
                         {/* Subheading */}
-                        <p className="mb-10 text-xl leading-relaxed text-gray-100 sm:text-2xl">
+                        <p className="mb-10 text-xl font-medium leading-relaxed text-white/90 sm:text-2xl">
                             Find premium watches, exquisite jewelry, and luxury accessories. Discover the elegance and quality you deserve.
                         </p>
 
@@ -66,7 +66,7 @@ export default function Home({ products }) {
                         <div className="grid gap-6 sm:grid-cols-2 lg:gap-8">
                             {/* For Customers */}
                             <div>
-                                <div className="mb-3 text-sm font-semibold tracking-wide text-gray-300 uppercase">FOR CUSTOMERS</div>
+                                <div className="mb-3 text-sm font-semibold tracking-wide text-white/80 uppercase">FOR CUSTOMERS</div>
                                 <Link href="/shop">
                                     <Button
                                         size="lg"
@@ -79,7 +79,7 @@ export default function Home({ products }) {
 
                             {/* For Businesses */}
                             <div>
-                                <div className="mb-3 text-sm font-semibold tracking-wide text-gray-300 uppercase">EXPLORE MORE</div>
+                                <div className="mb-3 text-sm font-semibold tracking-wide text-white/80 uppercase">EXPLORE MORE</div>
                                 <div className="flex flex-col gap-3 sm:flex-row">
                                     <Link href="/shop" className="flex-1">
                                         <Button
