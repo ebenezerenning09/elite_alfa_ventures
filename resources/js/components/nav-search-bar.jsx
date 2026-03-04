@@ -62,25 +62,35 @@ export function NavSearchBar({ searchQuery, setSearchQuery, isMobile = false }) 
     };
 
     return (
-        <form onSubmit={handleSearch} className="relative">
-            <input
-                type="text"
-                placeholder="Search for products..."
-                value={searchQuery}
-                onChange={handleInputChange}
-                className={`w-full rounded-lg border border-gray-300 bg-[var(--color-off-white)] px-4 py-2.5 pl-10 text-[var(--color-deep-blue)] ${
-                    isMobile ? 'pr-20 text-sm' : 'pr-12 text-sm'
-                } focus:border-[var(--color-mustard-gold)] focus:outline-none focus:ring-2 focus:ring-[var(--color-mustard-gold)]/20`}
-            />
-            <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
-            <Button
-                type="submit"
-                className={`absolute right-2 top-1/2 -translate-y-1/2 bg-[var(--color-deep-blue)] text-white hover:bg-[var(--color-deep-blue)]/90 ${
-                    isMobile ? 'px-3 py-1.5 text-xs' : 'px-4 py-1.5 text-sm'
-                }`}
-            >
-                Search
-            </Button>
+        <form onSubmit={handleSearch} className={`relative flex items-center ${isMobile ? 'gap-2' : ''}`}>
+            <div className="relative flex-1">
+                <input
+                    type="text"
+                    placeholder="Search for products..."
+                    value={searchQuery}
+                    onChange={handleInputChange}
+                    className={`w-full rounded-lg border border-gray-300 bg-[var(--color-off-white)] px-4 py-2.5 pl-10 text-[var(--color-deep-blue)] text-sm focus:border-[var(--color-mustard-gold)] focus:outline-none focus:ring-2 focus:ring-[var(--color-mustard-gold)]/20 ${
+                        !isMobile ? 'pr-12' : ''
+                    }`}
+                />
+                <Search className={`absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400`} />
+                {!isMobile && (
+                    <Button
+                        type="submit"
+                        className="absolute right-1 top-1/2 -translate-y-1/2 h-8 bg-[var(--color-deep-blue)] px-3 text-xs text-white hover:bg-[var(--color-deep-blue)]/90"
+                    >
+                        Search
+                    </Button>
+                )}
+            </div>
+            {isMobile && (
+                <Button
+                    type="submit"
+                    className="shrink-0 bg-[var(--color-deep-blue)] text-white hover:bg-[var(--color-deep-blue)]/90 px-4 py-2.5 h-10"
+                >
+                    Search
+                </Button>
+            )}
         </form>
     );
 }

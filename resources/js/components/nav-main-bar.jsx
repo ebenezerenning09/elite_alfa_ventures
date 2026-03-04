@@ -40,10 +40,10 @@ export function NavMainBar({ isSearchOpen, setIsSearchOpen, searchQuery, setSear
 
                 {/* Cart */}
                 <Link href="/cart" className="relative">
-                    <Button variant="ghost" size="icon" className="relative hover:bg-gray-100">
-                        <ShoppingCart className="h-6 w-6 text-[var(--color-deep-blue)]" />
+                    <Button variant="ghost" size="icon" className="relative h-11 w-11 hover:bg-gray-100">
+                        <ShoppingCart className="h-8 w-8 text-[var(--color-deep-blue)]" />
                         {cartCount > 0 && (
-                            <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-[var(--color-bright-yellow)] text-[10px] font-bold text-[var(--color-deep-blue)]">
+                            <span className="absolute -right-0.5 -top-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-[var(--color-bright-yellow)] text-[10px] font-bold text-[var(--color-deep-blue)]">
                                 {cartCount > 99 ? '99+' : cartCount}
                             </span>
                         )}

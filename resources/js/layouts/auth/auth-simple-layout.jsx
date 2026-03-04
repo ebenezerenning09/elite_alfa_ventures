@@ -1,4 +1,4 @@
-import AppLogoIcon from '@/components/app-logo-icon';
+import { Logo } from '@/components/logo';
 import { Link } from '@inertiajs/react';
 
 export default function AuthSimpleLayout({ children, title, description }) {
@@ -7,11 +7,8 @@ export default function AuthSimpleLayout({ children, title, description }) {
             {/* Header Section with Deep Blue Background */}
             <div className="bg-[var(--color-deep-blue)] px-6 py-8 md:px-10 md:py-12">
                 <div className="mx-auto max-w-md">
-                    <Link href={route('home')} className="mb-6 flex items-center justify-center gap-3">
-                        <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-white/10 backdrop-blur-sm">
-                            <AppLogoIcon className="size-8 fill-current text-white"/>
-                        </div>
-                        <span className="text-xl font-bold text-white">Elite Alfa Ventures</span>
+                    <Link href={route('home')} className="mb-6 flex items-center justify-center">
+                        <Logo className="h-16 w-auto" imgClassName="h-16 w-auto" />
                     </Link>
                 </div>
             </div>
