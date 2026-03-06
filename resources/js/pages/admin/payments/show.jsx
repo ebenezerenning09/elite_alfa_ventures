@@ -1,9 +1,9 @@
-import { Head, Link } from '@inertiajs/react';
 import AdminLayout from '@/components/admin/Layout';
-import { Button } from '@/components/ui/button';
-import { ArrowLeft, User, Package, CreditCard } from 'lucide-react';
 import StatusBadge from '@/components/admin/StatusBadge';
+import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Head, Link } from '@inertiajs/react';
+import { ArrowLeft, CreditCard, Package, User } from 'lucide-react';
 
 export default function PaymentShow({ payment }) {
     return (
@@ -29,43 +29,43 @@ export default function PaymentShow({ payment }) {
                         </CardHeader>
                         <CardContent className="space-y-4">
                             <div>
-                                <div className="text-[var(--color-brown)] text-sm font-medium">Payment Reference</div>
-                                <div className="text-[var(--color-deep-blue)] mt-1 text-lg font-semibold">{payment.payment_reference}</div>
+                                <div className="text-sm font-medium text-[var(--color-brown)]">Payment Reference</div>
+                                <div className="mt-1 text-lg font-semibold text-[var(--color-deep-blue)]">{payment.payment_reference}</div>
                             </div>
                             {payment.transaction_id && (
                                 <div>
-                                    <div className="text-[var(--color-brown)] text-sm font-medium">Transaction ID</div>
-                                    <div className="text-[var(--color-deep-blue)] mt-1 font-mono text-sm break-all">{payment.transaction_id}</div>
+                                    <div className="text-sm font-medium text-[var(--color-brown)]">Transaction ID</div>
+                                    <div className="mt-1 font-mono text-sm break-all text-[var(--color-deep-blue)]">{payment.transaction_id}</div>
                                 </div>
                             )}
                             <div>
-                                <div className="text-[var(--color-brown)] text-sm font-medium">Amount</div>
-                                <div className="text-[var(--color-deep-blue)] mt-1 text-xl font-bold">₵{Number(payment.amount).toLocaleString()}</div>
+                                <div className="text-sm font-medium text-[var(--color-brown)]">Amount</div>
+                                <div className="mt-1 text-xl font-bold text-[var(--color-deep-blue)]">₵{Number(payment.amount).toLocaleString()}</div>
                             </div>
                             <div>
-                                <div className="text-[var(--color-brown)] text-sm font-medium">Currency</div>
-                                <div className="text-[var(--color-deep-blue)] mt-1">{payment.currency || 'GHS'}</div>
+                                <div className="text-sm font-medium text-[var(--color-brown)]">Currency</div>
+                                <div className="mt-1 text-[var(--color-deep-blue)]">{payment.currency || 'GHS'}</div>
                             </div>
                             <div>
-                                <div className="text-[var(--color-brown)] text-sm font-medium">Status</div>
+                                <div className="text-sm font-medium text-[var(--color-brown)]">Status</div>
                                 <div className="mt-1">
                                     <StatusBadge status={payment.status} />
                                 </div>
                             </div>
                             <div>
-                                <div className="text-[var(--color-brown)] text-sm font-medium">Payment Method</div>
-                                <div className="text-[var(--color-deep-blue)] mt-1 capitalize">{payment.payment_method || 'N/A'}</div>
+                                <div className="text-sm font-medium text-[var(--color-brown)]">Payment Method</div>
+                                <div className="mt-1 text-[var(--color-deep-blue)] capitalize">{payment.payment_method || 'N/A'}</div>
                             </div>
                             {payment.payment_date && (
                                 <div>
-                                    <div className="text-[var(--color-brown)] text-sm font-medium">Payment Date</div>
-                                    <div className="text-[var(--color-brown)] mt-1">{new Date(payment.payment_date).toLocaleString()}</div>
+                                    <div className="text-sm font-medium text-[var(--color-brown)]">Payment Date</div>
+                                    <div className="mt-1 text-[var(--color-brown)]">{new Date(payment.payment_date).toLocaleString()}</div>
                                 </div>
                             )}
                             {payment.processed_at && (
                                 <div>
-                                    <div className="text-[var(--color-brown)] text-sm font-medium">Processed At</div>
-                                    <div className="text-[var(--color-brown)] mt-1">{new Date(payment.processed_at).toLocaleString()}</div>
+                                    <div className="text-sm font-medium text-[var(--color-brown)]">Processed At</div>
+                                    <div className="mt-1 text-[var(--color-brown)]">{new Date(payment.processed_at).toLocaleString()}</div>
                                 </div>
                             )}
                         </CardContent>
@@ -82,30 +82,34 @@ export default function PaymentShow({ payment }) {
                             </CardHeader>
                             <CardContent className="space-y-4">
                                 <div>
-                                    <div className="text-[var(--color-brown)] text-sm font-medium">Name</div>
-                                    <div className="text-[var(--color-deep-blue)] mt-1 font-semibold">
+                                    <div className="text-sm font-medium text-[var(--color-brown)]">Name</div>
+                                    <div className="mt-1 font-semibold text-[var(--color-deep-blue)]">
                                         {payment.user.full_name || payment.user.name || 'N/A'}
                                     </div>
                                 </div>
                                 <div>
-                                    <div className="text-[var(--color-brown)] text-sm font-medium">Email</div>
-                                    <div className="text-[var(--color-deep-blue)] mt-1">{payment.user.email}</div>
+                                    <div className="text-sm font-medium text-[var(--color-brown)]">Email</div>
+                                    <div className="mt-1 text-[var(--color-deep-blue)]">{payment.user.email}</div>
                                 </div>
                                 {payment.user.phone && (
                                     <div>
-                                        <div className="text-[var(--color-brown)] text-sm font-medium">Phone</div>
-                                        <div className="text-[var(--color-deep-blue)] mt-1">{payment.user.phone}</div>
+                                        <div className="text-sm font-medium text-[var(--color-brown)]">Phone</div>
+                                        <div className="mt-1 text-[var(--color-deep-blue)]">{payment.user.phone}</div>
                                     </div>
                                 )}
                                 <div>
-                                    <div className="text-[var(--color-brown)] text-sm font-medium">Account Status</div>
+                                    <div className="text-sm font-medium text-[var(--color-brown)]">Account Status</div>
                                     <div className="mt-1">
                                         <StatusBadge status={payment.user.is_active ? 'active' : 'inactive'} />
                                     </div>
                                 </div>
                                 <div className="pt-2">
                                     <Link href={route('admin.users.show', payment.user.id)}>
-                                        <Button variant="outline" size="sm" className="w-full border-[var(--color-deep-blue)] text-[var(--color-deep-blue)] hover:bg-[var(--color-deep-blue)] hover:text-white">
+                                        <Button
+                                            variant="outline"
+                                            size="sm"
+                                            className="w-full border-[var(--color-deep-blue)] text-[var(--color-deep-blue)] hover:bg-[var(--color-deep-blue)] hover:text-white"
+                                        >
                                             View Customer Profile
                                         </Button>
                                     </Link>
@@ -125,37 +129,48 @@ export default function PaymentShow({ payment }) {
                             </CardHeader>
                             <CardContent className="space-y-4">
                                 <div>
-                                    <div className="text-[var(--color-brown)] text-sm font-medium">Order Number</div>
-                                    <Link href={route('admin.orders.show', payment.order.id)} className="text-[var(--color-deep-blue)] mt-1 text-lg font-semibold hover:underline block">
+                                    <div className="text-sm font-medium text-[var(--color-brown)]">Order Number</div>
+                                    <Link
+                                        href={route('admin.orders.show', payment.order.id)}
+                                        className="mt-1 block text-lg font-semibold text-[var(--color-deep-blue)] hover:underline"
+                                    >
                                         #{payment.order.order_number}
                                     </Link>
                                 </div>
                                 <div>
-                                    <div className="text-[var(--color-brown)] text-sm font-medium">Order Status</div>
+                                    <div className="text-sm font-medium text-[var(--color-brown)]">Order Status</div>
                                     <div className="mt-1">
                                         <StatusBadge status={payment.order.status} />
                                     </div>
                                 </div>
                                 <div>
-                                    <div className="text-[var(--color-brown)] text-sm font-medium">Order Total</div>
-                                    <div className="text-[var(--color-deep-blue)] mt-1 text-lg font-semibold">₵{Number(payment.order.total_amount).toLocaleString()}</div>
+                                    <div className="text-sm font-medium text-[var(--color-brown)]">Order Total</div>
+                                    <div className="mt-1 text-lg font-semibold text-[var(--color-deep-blue)]">
+                                        ₵{Number(payment.order.total_amount).toLocaleString()}
+                                    </div>
                                 </div>
                                 <div>
-                                    <div className="text-[var(--color-brown)] text-sm font-medium">Order Date</div>
-                                    <div className="text-[var(--color-brown)] mt-1">{new Date(payment.order.created_at).toLocaleString()}</div>
+                                    <div className="text-sm font-medium text-[var(--color-brown)]">Order Date</div>
+                                    <div className="mt-1 text-[var(--color-brown)]">{new Date(payment.order.created_at).toLocaleString()}</div>
                                 </div>
                                 {payment.order.shipping_address && (
-                                    <div>
-                                        <div className="text-[var(--color-brown)] text-sm font-medium">Shipping Address</div>
-                                        <div className="text-[var(--color-brown)] mt-1 text-sm">
-                                            <div>{payment.order.shipping_address.address}</div>
-                                            <div>{payment.order.shipping_address.town}, {payment.order.shipping_address.region}</div>
+                                    <div className="mt-4 border-t border-gray-100 pt-4">
+                                        <h4 className="mb-2 text-sm font-semibold text-[var(--color-brown)]">Delivery Information</h4>
+                                        <div className="text-sm text-gray-700">
+                                            <div>{payment.order.shipping_address}</div>
+                                            <div>
+                                                {payment.order.shipping_town}, {payment.order.shipping_region}
+                                            </div>
                                         </div>
                                     </div>
                                 )}
                                 <div className="pt-2">
                                     <Link href={route('admin.orders.show', payment.order.id)}>
-                                        <Button variant="outline" size="sm" className="w-full border-[var(--color-deep-blue)] text-[var(--color-deep-blue)] hover:bg-[var(--color-deep-blue)] hover:text-white">
+                                        <Button
+                                            variant="outline"
+                                            size="sm"
+                                            className="w-full border-[var(--color-deep-blue)] text-[var(--color-deep-blue)] hover:bg-[var(--color-deep-blue)] hover:text-white"
+                                        >
                                             View Full Order Details
                                         </Button>
                                     </Link>
@@ -174,35 +189,47 @@ export default function PaymentShow({ payment }) {
                         <CardContent>
                             <div className="space-y-4">
                                 {payment.order.order_items.map((item) => (
-                                    <div key={item.id} className="flex items-center gap-4 rounded-lg border border-gray-200 p-4 hover:bg-gray-50 transition-colors">
+                                    <div
+                                        key={item.id}
+                                        className="flex items-center gap-4 rounded-lg border border-gray-200 p-4 transition-colors hover:bg-gray-50"
+                                    >
                                         {item.product?.images?.[0] && (
                                             <img
                                                 src={item.product.images[0].image_path}
                                                 alt={item.product.name}
-                                                className="h-20 w-20 rounded object-cover border border-gray-200"
+                                                className="h-20 w-20 rounded border border-gray-200 object-cover"
                                             />
                                         )}
                                         <div className="flex-1">
-                                            <div className="text-[var(--color-deep-blue)] font-semibold text-lg">{item.product?.name || 'Product not found'}</div>
-                                            <div className="text-[var(--color-brown)] text-sm mt-1">
+                                            <div className="text-lg font-semibold text-[var(--color-deep-blue)]">
+                                                {item.product?.name || 'Product not found'}
+                                            </div>
+                                            <div className="mt-1 text-sm text-[var(--color-brown)]">
                                                 Quantity: {item.quantity} × ₵{Number(item.price).toLocaleString()}
                                             </div>
                                             {item.product && (
-                                                <Link href={route('admin.products.show', item.product.id)} className="text-[var(--color-deep-blue)] text-sm hover:underline mt-1 inline-block">
+                                                <Link
+                                                    href={route('admin.products.show', item.product.id)}
+                                                    className="mt-1 inline-block text-sm text-[var(--color-deep-blue)] hover:underline"
+                                                >
                                                     View Product
                                                 </Link>
                                             )}
                                         </div>
                                         <div className="text-right">
-                                            <div className="text-[var(--color-deep-blue)] font-bold text-lg">₵{Number(item.price * item.quantity).toLocaleString()}</div>
-                                            <div className="text-[var(--color-brown)] text-sm">Subtotal</div>
+                                            <div className="text-lg font-bold text-[var(--color-deep-blue)]">
+                                                ₵{Number(item.price * item.quantity).toLocaleString()}
+                                            </div>
+                                            <div className="text-sm text-[var(--color-brown)]">Subtotal</div>
                                         </div>
                                     </div>
                                 ))}
-                                <div className="border-t border-gray-200 pt-4 mt-4">
-                                    <div className="flex justify-between items-center">
-                                        <div className="text-[var(--color-brown)] font-semibold">Order Total</div>
-                                        <div className="text-[var(--color-deep-blue)] text-xl font-bold">₵{Number(payment.order.total_amount).toLocaleString()}</div>
+                                <div className="mt-4 border-t border-gray-200 pt-4">
+                                    <div className="flex items-center justify-between">
+                                        <div className="font-semibold text-[var(--color-brown)]">Order Total</div>
+                                        <div className="text-xl font-bold text-[var(--color-deep-blue)]">
+                                            ₵{Number(payment.order.total_amount).toLocaleString()}
+                                        </div>
                                     </div>
                                 </div>
                             </div>

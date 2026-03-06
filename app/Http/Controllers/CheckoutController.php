@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\UserAddress;
+use App\Services\PaystackService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -43,12 +44,19 @@ class CheckoutController extends Controller
 
         $user = Auth::user();
 
+        $shippingRegion = $validated['region'] ?? null;
+        $shippingTown = $validated['town'] ?? null;
+        $shippingAddressLine = $validated['address'] ?? null;
+
         // Verify address belongs to user if address_id is provided
         if (isset($validated['address_id'])) {
             $address = $user->addresses()->find($validated['address_id']);
             if (!$address) {
                 return back()->with('error', 'Selected address not found.');
             }
+            $shippingRegion = $address->region;
+            $shippingTown = $address->town;
+            $shippingAddressLine = $address->address;
         } else {
             // Validate region is enabled
             $regions = config('regions');
@@ -60,22 +68,14 @@ class CheckoutController extends Controller
 
             // Create new address if save_address is true
             if ($validated['save_address'] ?? false) {
-                $address = $user->addresses()->create([
+                $user->addresses()->create([
                     'region' => $validated['region'],
                     'town' => $validated['town'],
                     'address' => $validated['address'],
                     'is_default' => $user->addresses()->count() === 0,
                 ]);
-            } else {
-                // Create temporary address for order
-                $address = UserAddress::create([
-                    'user_id' => $user->id,
-                    'region' => $validated['region'],
-                    'town' => $validated['town'],
-                    'address' => $validated['address'],
-                    'is_default' => false,
-                ]);
             }
+            // If save_address is false, we don't pollute the DB with a temporary address.
         }
 
         // Update user's full_name and phone
@@ -83,7 +83,23 @@ class CheckoutController extends Controller
         $user->phone = $validated['phone'];
         $user->save();
 
-        // Return success - frontend will POST to payment.redirect in onSuccess callback
-        return back()->with('success', 'Checkout information saved. Redirecting to payment...');
+        // Delegate to PaymentController to initiate payment (cho pattern: single request flow)
+        $paymentController = app(PaymentController::class);
+
+        // Build a new request with the data the PaymentController expects
+        $paymentRequest = new Request([
+            'cart' => $validated['cart'],
+            'full_name' => $validated['full_name'],
+            'phone' => $validated['phone'],
+            'shipping_region' => $shippingRegion,
+            'shipping_town' => $shippingTown,
+            'shipping_address' => $shippingAddressLine,
+        ]);
+
+        // Copy over the session from the original request
+        $paymentRequest->setLaravelSession($request->session());
+
+        return $paymentController->redirectToGateway($paymentRequest);
     }
 }
+

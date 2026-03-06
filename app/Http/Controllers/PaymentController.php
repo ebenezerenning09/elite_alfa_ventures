@@ -35,13 +35,14 @@ class PaymentController extends Controller
             'cart' => 'required|array|min:1',
             'cart.*.id' => 'required|exists:products,id',
             'cart.*.quantity' => 'required|integer|min:1',
-            'address_id' => 'required|exists:user_addresses,id',
             'full_name' => 'required|string|max:255',
             'phone' => 'required|string|max:20',
+            'shipping_region' => 'required|string',
+            'shipping_town' => 'required|string',
+            'shipping_address' => 'required|string',
         ]);
 
         $cart = $validated['cart'];
-        $addressId = $validated['address_id'];
         $fullName = $validated['full_name'];
         $phone = $validated['phone'];
 
@@ -57,12 +58,6 @@ class PaymentController extends Controller
                 $totalAmount += $subtotal;
             }
 
-            // Get address - verify it belongs to user
-            $address = $user->addresses()->find($addressId);
-            if (!$address) {
-                return redirect()->route('checkout.index')->with('error', 'Selected address not found.');
-            }
-
             // Update user's full_name and phone
             $user->full_name = $fullName;
             $user->phone = $phone;
@@ -71,13 +66,18 @@ class PaymentController extends Controller
             // Generate unique order number
             $orderNumber = 'ORD-' . strtoupper(uniqid());
 
-            // Create order
+            // Create order with snapshot fields
             $order = Order::create([
                 'user_id' => $user->id,
                 'order_number' => $orderNumber,
                 'total_amount' => $totalAmount,
                 'status' => 'pending',
-                'shipping_address_id' => $address->id,
+                'shipping_region' => $validated['shipping_region'],
+                'shipping_town' => $validated['shipping_town'],
+                'shipping_address' => $validated['shipping_address'],
+                'shipping_full_name' => $fullName,
+                'shipping_phone' => $phone,
+                'shipping_email' => $user->email,
             ]);
 
             // Create order items

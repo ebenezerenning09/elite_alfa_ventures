@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
 import { usePage } from '@inertiajs/react';
-import { CheckCircle2, XCircle, AlertTriangle, X } from 'lucide-react';
+import { AlertTriangle, CheckCircle2, X, XCircle } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 const Toast = ({ type, message, onHide }) => {
     const [isVisible, setIsVisible] = useState(false);
@@ -36,17 +36,17 @@ const Toast = ({ type, message, onHide }) => {
 
     return (
         <div
-            className={`fixed top-4 right-4 z-50 transition-all duration-300 transform ${
+            className={`fixed top-4 right-4 z-[9999] transform transition-all duration-300 ${
                 exit ? 'translate-x-full opacity-0' : 'translate-x-0 opacity-100'
             }`}
         >
             <div
-                className={`w-80 rounded-lg shadow-lg border p-4 ${
+                className={`w-80 rounded-lg border p-4 shadow-lg ${
                     type === 'success'
-                        ? 'bg-green-50 border-green-200'
+                        ? 'border-green-200 bg-green-50'
                         : type === 'error'
-                        ? 'bg-red-50 border-red-200'
-                        : 'bg-yellow-50 border-yellow-200'
+                          ? 'border-red-200 bg-red-50'
+                          : 'border-yellow-200 bg-yellow-50'
                 }`}
             >
                 <div className="flex items-start gap-2">
@@ -54,26 +54,14 @@ const Toast = ({ type, message, onHide }) => {
                     <div className="flex-1">
                         <h3
                             className={`text-sm font-semibold ${
-                                type === 'success'
-                                    ? 'text-green-800'
-                                    : type === 'error'
-                                    ? 'text-red-800'
-                                    : 'text-yellow-800'
+                                type === 'success' ? 'text-green-800' : type === 'error' ? 'text-red-800' : 'text-yellow-800'
                             }`}
                         >
-                            {type === 'success'
-                                ? 'Success'
-                                : type === 'error'
-                                ? 'Error'
-                                : 'Warning'}
+                            {type === 'success' ? 'Success' : type === 'error' ? 'Error' : 'Warning'}
                         </h3>
                         <p
-                            className={`text-sm mt-1 ${
-                                type === 'success'
-                                    ? 'text-green-700'
-                                    : type === 'error'
-                                    ? 'text-red-700'
-                                    : 'text-yellow-700'
+                            className={`mt-1 text-sm ${
+                                type === 'success' ? 'text-green-700' : type === 'error' ? 'text-red-700' : 'text-yellow-700'
                             }`}
                         >
                             {message}
@@ -88,12 +76,12 @@ const Toast = ({ type, message, onHide }) => {
                                 if (onHide) onHide();
                             }, 300);
                         }}
-                        className={`p-1 rounded-full hover:bg-opacity-20 ${
+                        className={`hover:bg-opacity-20 rounded-full p-1 ${
                             type === 'success'
-                                ? 'hover:bg-green-200 text-green-700'
+                                ? 'text-green-700 hover:bg-green-200'
                                 : type === 'error'
-                                ? 'hover:bg-red-200 text-red-700'
-                                : 'hover:bg-yellow-200 text-yellow-700'
+                                  ? 'text-red-700 hover:bg-red-200'
+                                  : 'text-yellow-700 hover:bg-yellow-200'
                         }`}
                     >
                         <X className="h-5 w-5" />
@@ -153,32 +141,30 @@ export default function ToastProvider({ children }) {
         }
     }, [flash]);
 
+    // Handle client-side toast events without Inertia reload
+    useEffect(() => {
+        const handleToastEvent = (e) => {
+            const { type, message } = e.detail;
+            if (['success', 'error', 'warning'].includes(type) && message) {
+                setToasts((prev) => ({
+                    ...prev,
+                    [type]: {
+                        message,
+                        id: Date.now() + Math.random().toString(36).substr(2, 9),
+                    },
+                }));
+            }
+        };
+
+        window.addEventListener('toast', handleToastEvent);
+        return () => window.removeEventListener('toast', handleToastEvent);
+    }, []);
+
     return (
         <>
-            {toasts.success && (
-                <Toast
-                    key={toasts.success.id}
-                    type="success"
-                    message={toasts.success.message}
-                    onHide={() => handleHide('success')}
-                />
-            )}
-            {toasts.error && (
-                <Toast
-                    key={toasts.error.id}
-                    type="error"
-                    message={toasts.error.message}
-                    onHide={() => handleHide('error')}
-                />
-            )}
-            {toasts.warning && (
-                <Toast
-                    key={toasts.warning.id}
-                    type="warning"
-                    message={toasts.warning.message}
-                    onHide={() => handleHide('warning')}
-                />
-            )}
+            {toasts.success && <Toast key={toasts.success.id} type="success" message={toasts.success.message} onHide={() => handleHide('success')} />}
+            {toasts.error && <Toast key={toasts.error.id} type="error" message={toasts.error.message} onHide={() => handleHide('error')} />}
+            {toasts.warning && <Toast key={toasts.warning.id} type="warning" message={toasts.warning.message} onHide={() => handleHide('warning')} />}
             {children}
         </>
     );

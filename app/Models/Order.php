@@ -16,7 +16,12 @@ class Order extends Model
         'order_number',
         'total_amount',
         'status',
-        'shipping_address_id',
+        'shipping_region',
+        'shipping_town',
+        'shipping_address',
+        'shipping_full_name',
+        'shipping_phone',
+        'shipping_email',
     ];
 
     protected function casts(): array
@@ -47,8 +52,5 @@ class Order extends Model
         return $this->hasOne(Payment::class);
     }
 
-    public function shippingAddress(): BelongsTo
-    {
-        return $this->belongsTo(UserAddress::class, 'shipping_address_id');
-    }
+    // Removed shippingAddress() relation because snapshot is used instead.
 }

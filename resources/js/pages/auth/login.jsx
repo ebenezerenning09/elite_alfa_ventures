@@ -1,5 +1,6 @@
 import { Head, useForm } from '@inertiajs/react';
-import { LoaderCircle } from 'lucide-react';
+import { Eye, EyeOff, LoaderCircle } from 'lucide-react';
+import { useState } from 'react';
 
 import InputError from '@/components/input-error';
 import TextLink from '@/components/text-link';
@@ -16,6 +17,8 @@ export default function Login({ status, canResetPassword }) {
         remember: false,
     });
 
+    const [showPassword, setShowPassword] = useState(false);
+
     const submit = (e) => {
         e.preventDefault();
         post(route('login'), {
@@ -25,69 +28,99 @@ export default function Login({ status, canResetPassword }) {
 
     return (
         <AuthLayout title="Log in to your account" description="Enter your email and password below to log in">
-            <Head title="Log in"/>
+            <Head title="Log in" />
 
             <form className="flex flex-col gap-6" onSubmit={submit}>
                 <div className="grid gap-6">
                     <div className="grid gap-2">
-                        <Label htmlFor="email" className="text-[var(--color-deep-blue)] font-medium">Email address</Label>
-                        <Input 
-                            id="email" 
-                            type="email" 
-                            required 
-                            autoFocus 
-                            tabIndex={1} 
-                            autoComplete="email" 
-                            value={data.email} 
-                            onChange={(e) => setData('email', e.target.value)} 
+                        <Label htmlFor="email" className="font-medium text-[var(--color-deep-blue)]">
+                            Email address
+                        </Label>
+                        <Input
+                            id="email"
+                            type="email"
+                            required
+                            autoFocus
+                            tabIndex={1}
+                            autoComplete="email"
+                            value={data.email}
+                            onChange={(e) => setData('email', e.target.value)}
                             placeholder="email@example.com"
                             className="border-gray-300 focus:border-[var(--color-mustard-gold)] focus:ring-[var(--color-mustard-gold)]/20"
                         />
-                        <InputError message={errors.email}/>
+                        <InputError message={errors.email} />
                     </div>
 
                     <div className="grid gap-2">
                         <div className="flex items-center">
-                            <Label htmlFor="password" className="text-[var(--color-deep-blue)] font-medium">Password</Label>
+                            <Label htmlFor="password" className="font-medium text-[var(--color-deep-blue)]">
+                                Password
+                            </Label>
                             {canResetPassword && (
-                                <TextLink href={route('password.request')} className="ml-auto text-sm text-[var(--color-deep-blue)] hover:text-[var(--color-mustard-gold)] transition-colors no-underline hover:no-underline" tabIndex={5}>
+                                <TextLink
+                                    href={route('password.request')}
+                                    className="ml-auto text-sm text-[var(--color-deep-blue)] no-underline transition-colors hover:text-[var(--color-mustard-gold)] hover:no-underline"
+                                    tabIndex={5}
+                                >
                                     Forgot password?
                                 </TextLink>
                             )}
                         </div>
-                        <Input 
-                            id="password" 
-                            type="password" 
-                            required 
-                            tabIndex={2} 
-                            autoComplete="current-password" 
-                            value={data.password} 
-                            onChange={(e) => setData('password', e.target.value)} 
-                            placeholder="Password"
-                            className="border-gray-300 focus:border-[var(--color-mustard-gold)] focus:ring-[var(--color-mustard-gold)]/20"
-                        />
-                        <InputError message={errors.password}/>
+                        <div className="relative">
+                            <Input
+                                id="password"
+                                type={showPassword ? 'text' : 'password'}
+                                required
+                                tabIndex={2}
+                                autoComplete="current-password"
+                                value={data.password}
+                                onChange={(e) => setData('password', e.target.value)}
+                                placeholder="Password"
+                                className="border-gray-300 pr-10 focus:border-[var(--color-mustard-gold)] focus:ring-[var(--color-mustard-gold)]/20"
+                            />
+                            <button
+                                type="button"
+                                tabIndex={-1}
+                                onClick={() => setShowPassword(!showPassword)}
+                                className="absolute top-1/2 right-3 -translate-y-1/2 text-gray-500 transition-colors hover:text-gray-700"
+                            >
+                                {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                            </button>
+                        </div>
+                        <InputError message={errors.password} />
                     </div>
 
                     <div className="flex items-center space-x-3">
-                        <Checkbox id="remember" name="remember" tabIndex={3} checked={data.remember} onCheckedChange={(checked) => setData('remember', checked)}/>
-                        <Label htmlFor="remember" className="text-[var(--color-brown)]">Remember me</Label>
+                        <Checkbox
+                            id="remember"
+                            name="remember"
+                            tabIndex={3}
+                            checked={data.remember}
+                            onCheckedChange={(checked) => setData('remember', checked)}
+                        />
+                        <Label htmlFor="remember" className="text-[var(--color-brown)]">
+                            Remember me
+                        </Label>
                     </div>
 
-                    <Button 
-                        type="submit" 
-                        className="mt-4 w-full bg-[var(--color-deep-blue)] text-white hover:bg-[var(--color-deep-blue)]/90 transition-all duration-300 shadow-md hover:shadow-lg" 
-                        tabIndex={4} 
+                    <Button
+                        type="submit"
+                        className="mt-4 w-full bg-[var(--color-deep-blue)] text-white shadow-md transition-all duration-300 hover:bg-[var(--color-deep-blue)]/90 hover:shadow-lg"
+                        tabIndex={4}
                         disabled={processing}
                     >
-                        {processing && <LoaderCircle className="h-4 w-4 animate-spin"/>}
+                        {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
                         Log in
                     </Button>
                 </div>
 
-                <div className="text-[var(--color-brown)] text-center text-sm">
+                <div className="text-center text-sm text-[var(--color-brown)]">
                     Don't have an account?{' '}
-                    <TextLink href={route('register')} className="text-[var(--color-deep-blue)] font-medium hover:text-[var(--color-mustard-gold)] transition-colors no-underline hover:no-underline" tabIndex={5}>
+                    <TextLink
+                        href={route('register')}
+                        className="font-medium text-[var(--color-deep-blue)] no-underline transition-colors hover:text-[var(--color-mustard-gold)] hover:no-underline"
+                        tabIndex={5}
+                    >
                         Sign up
                     </TextLink>
                 </div>
@@ -97,4 +130,3 @@ export default function Login({ status, canResetPassword }) {
         </AuthLayout>
     );
 }
-

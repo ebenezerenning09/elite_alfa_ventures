@@ -32,7 +32,7 @@ class UserController extends Controller
             $query->where('is_active', $request->is_active === 'active');
         }
 
-        $perPage = $request->input('per_page', 15);
+        $perPage = $request->input('per_page', 30);
         $perPage = min(max((int) $perPage, 1), 50);
 
         $users = $query->latest()->paginate($perPage)->withQueryString();

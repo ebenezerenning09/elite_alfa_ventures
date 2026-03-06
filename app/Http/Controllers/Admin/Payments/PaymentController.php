@@ -44,7 +44,7 @@ class PaymentController extends Controller
             });
         }
 
-        $perPage = $request->input('per_page', 15);
+        $perPage = $request->input('per_page', 30);
         $perPage = min(max((int) $perPage, 1), 50);
 
         $payments = $query->latest('payment_date')->paginate($perPage)->withQueryString();
@@ -70,7 +70,7 @@ class PaymentController extends Controller
         $payment = Payment::with([
             'user',
             'order.orderItems.product.images',
-            'order.shippingAddress',
+            'order',
         ])
             ->findOrFail($id);
 

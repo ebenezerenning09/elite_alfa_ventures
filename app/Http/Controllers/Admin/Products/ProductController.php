@@ -55,7 +55,7 @@ class ProductController extends Controller
                 break;
         }
 
-        $perPage = $request->input('per_page', 15);
+        $perPage = $request->input('per_page', 30);
         $perPage = min(max((int) $perPage, 1), 50);
 
         $products = $query->paginate($perPage)->withQueryString();
