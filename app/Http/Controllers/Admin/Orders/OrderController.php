@@ -11,7 +11,7 @@ class OrderController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Order::with(['user', 'payment', 'shippingAddress']);
+        $query = Order::with(['user', 'payment']);
 
         // Filter by status
         if ($request->has('status') && $request->status !== 'all') {
@@ -38,7 +38,7 @@ class OrderController extends Controller
             });
         }
 
-        $perPage = $request->input('per_page', 15);
+        $perPage = $request->input('per_page', 30);
         $perPage = min(max((int) $perPage, 1), 50);
 
         $orders = $query->latest()->paginate($perPage)->withQueryString();
@@ -51,7 +51,7 @@ class OrderController extends Controller
 
     public function show($id)
     {
-        $order = Order::with(['user', 'orderItems.product.images', 'payment', 'shippingAddress'])
+        $order = Order::with(['user', 'orderItems.product.images', 'payment'])
             ->findOrFail($id);
 
         return Inertia::render('admin/orders/show', [

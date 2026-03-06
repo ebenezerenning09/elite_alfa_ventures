@@ -1,14 +1,8 @@
-import { FormSelect } from '@/components/forms/form-select';
 import { FormField } from '@/components/forms/form-field';
+import { FormSelect } from '@/components/forms/form-select';
 import { Label } from '@/components/ui/label';
 
-export function NewAddressForm({ 
-    data, 
-    setData, 
-    regions = [], 
-    errors = {}, 
-    showSaveOption = false 
-}) {
+export function NewAddressForm({ data, setData, regions = [], errors = {} }) {
     return (
         <div className="space-y-4">
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -43,20 +37,18 @@ export function NewAddressForm({
                 placeholder="Street, building, landmark, etc."
             />
 
-            {showSaveOption && (
-                <div className="flex items-center">
-                    <input
-                        type="checkbox"
-                        id="save_address"
-                        checked={data.save_address}
-                        onChange={(e) => setData('save_address', e.target.checked)}
-                        className="rounded border-gray-300 text-[var(--color-mustard-gold)] focus:ring-[var(--color-mustard-gold)]/20"
-                    />
-                    <Label htmlFor="save_address" className="ml-2 text-[var(--color-brown)]">
-                        Save this address for future orders
-                    </Label>
-                </div>
-            )}
+            <div className="flex items-center">
+                <input
+                    type="checkbox"
+                    id="save_address"
+                    checked={data.save_address}
+                    onChange={(e) => setData('save_address', e.target.checked)}
+                    className="rounded border-gray-300 text-[var(--color-mustard-gold)] focus:ring-[var(--color-mustard-gold)]/20"
+                />
+                <Label htmlFor="save_address" className="ml-2 text-[var(--color-brown)]">
+                    Save this address for future orders
+                </Label>
+            </div>
         </div>
     );
 }

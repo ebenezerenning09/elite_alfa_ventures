@@ -1,15 +1,15 @@
-import { Head, Link, router, useForm } from '@inertiajs/react';
+import FormModal from '@/components/admin/FormModal';
 import AdminLayout from '@/components/admin/Layout';
+import StatusBadge from '@/components/admin/StatusBadge';
+import Pagination from '@/components/pagination';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Users, Plus, Edit, Trash2, Eye, Search, Ban, CheckCircle } from 'lucide-react';
-import FormModal from '@/components/admin/FormModal';
-import StatusBadge from '@/components/admin/StatusBadge';
-import { useState, useCallback, useEffect, useRef } from 'react';
 import { Label } from '@/components/ui/label';
-import Pagination from '@/components/pagination';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Head, Link, router, useForm } from '@inertiajs/react';
 import { debounce } from 'lodash';
+import { Ban, CheckCircle, Edit, Eye, Plus, Search, Trash2, Users } from 'lucide-react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 export default function UsersIndex({ users, filters }) {
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
@@ -81,23 +81,31 @@ export default function UsersIndex({ users, filters }) {
     };
 
     const handleToggleActive = (id) => {
-        router.post(route('admin.users.toggle-active', id), {}, {
-            preserveScroll: true,
-        });
+        router.post(
+            route('admin.users.toggle-active', id),
+            {},
+            {
+                preserveScroll: true,
+            },
+        );
     };
 
     // Debounced search function
     const debouncedSearch = useCallback(
         debounce((query) => {
-            router.get(route('admin.users.index'), {
-                ...filtersRef.current,
-                search: query,
-            }, {
-                preserveState: true,
-                preserveScroll: true,
-            });
+            router.get(
+                route('admin.users.index'),
+                {
+                    ...filtersRef.current,
+                    search: query,
+                },
+                {
+                    preserveState: true,
+                    preserveScroll: true,
+                },
+            );
         }, 500),
-        []
+        [],
     );
 
     useEffect(() => {
@@ -107,13 +115,17 @@ export default function UsersIndex({ users, filters }) {
     }, [debouncedSearch]);
 
     const handleFilter = (key, value) => {
-        router.get(route('admin.users.index'), {
-            ...filters,
-            [key]: value,
-        }, {
-            preserveState: true,
-            preserveScroll: true,
-        });
+        router.get(
+            route('admin.users.index'),
+            {
+                ...filters,
+                [key]: value,
+            },
+            {
+                preserveState: true,
+                preserveScroll: true,
+            },
+        );
     };
 
     const handleSearchChange = (e) => {
@@ -128,7 +140,7 @@ export default function UsersIndex({ users, filters }) {
 
             <div className="p-6">
                 <div className="mb-6 flex items-center justify-between">
-                    <h2 className="text-[var(--color-deep-blue)] text-2xl font-bold">Users</h2>
+                    <h2 className="text-2xl font-bold text-[var(--color-deep-blue)]">Users</h2>
                     <Button
                         onClick={() => setIsCreateModalOpen(true)}
                         className="bg-[var(--color-deep-blue)] text-white hover:bg-[var(--color-deep-blue)]/90"
@@ -141,13 +153,13 @@ export default function UsersIndex({ users, filters }) {
                 {/* Filters */}
                 <div className="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
                     <div className="relative">
-                        <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+                        <Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-gray-400" />
                         <Input
                             type="text"
                             placeholder="Search users..."
                             value={searchQuery}
                             onChange={handleSearchChange}
-                            className="pl-10 border-gray-300"
+                            className="border-gray-300 pl-10"
                         />
                     </div>
                     <Select value={filters.is_active || 'all'} onValueChange={(value) => handleFilter('is_active', value)}>
@@ -168,22 +180,22 @@ export default function UsersIndex({ users, filters }) {
                         <table className="w-full border-collapse">
                             <thead>
                                 <tr className="border-b border-gray-200 bg-gray-50">
-                                    <th className="text-[var(--color-deep-blue)] p-3 text-left text-sm font-semibold">Name</th>
-                                    <th className="text-[var(--color-deep-blue)] p-3 text-left text-sm font-semibold">Email</th>
-                                    <th className="text-[var(--color-deep-blue)] p-3 text-left text-sm font-semibold">Phone</th>
-                                    <th className="text-[var(--color-deep-blue)] p-3 text-left text-sm font-semibold">Orders</th>
-                                    <th className="text-[var(--color-deep-blue)] p-3 text-left text-sm font-semibold">Status</th>
-                                    <th className="text-[var(--color-deep-blue)] p-3 text-right text-sm font-semibold">Actions</th>
+                                    <th className="p-3 text-left text-sm font-semibold text-[var(--color-deep-blue)]">#</th>
+                                    <th className="p-3 text-left text-sm font-semibold text-[var(--color-deep-blue)]">Name</th>
+                                    <th className="p-3 text-left text-sm font-semibold text-[var(--color-deep-blue)]">Email</th>
+                                    <th className="p-3 text-left text-sm font-semibold text-[var(--color-deep-blue)]">Phone</th>
+                                    <th className="p-3 text-left text-sm font-semibold text-[var(--color-deep-blue)]">Orders</th>
+                                    <th className="p-3 text-left text-sm font-semibold text-[var(--color-deep-blue)]">Status</th>
+                                    <th className="p-3 text-right text-sm font-semibold text-[var(--color-deep-blue)]">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {users.data.map((user) => (
+                                {users.data.map((user, index) => (
                                     <tr key={user.id} className="border-b border-gray-200 hover:bg-gray-50">
+                                        <td className="p-3 text-sm text-[var(--color-brown)]">{users.from ? users.from + index : index + 1}</td>
                                         <td className="p-3">
-                                            <div className="text-[var(--color-deep-blue)] font-medium">{user.name}</div>
-                                            {user.full_name && (
-                                                <div className="text-[var(--color-brown)] text-sm">{user.full_name}</div>
-                                            )}
+                                            <div className="font-medium text-[var(--color-deep-blue)]">{user.name}</div>
+                                            {user.full_name && <div className="text-sm text-[var(--color-brown)]">{user.full_name}</div>}
                                         </td>
                                         <td className="p-3 text-[var(--color-brown)]">{user.email}</td>
                                         <td className="p-3 text-[var(--color-brown)]">{user.phone || 'N/A'}</td>
@@ -198,12 +210,7 @@ export default function UsersIndex({ users, filters }) {
                                                         <Eye className="h-4 w-4" />
                                                     </Button>
                                                 </Link>
-                                                <Button
-                                                    variant="ghost"
-                                                    size="sm"
-                                                    className="h-8 w-8 p-0"
-                                                    onClick={() => handleEdit(user)}
-                                                >
+                                                <Button variant="ghost" size="sm" className="h-8 w-8 p-0" onClick={() => handleEdit(user)}>
                                                     <Edit className="h-4 w-4" />
                                                 </Button>
                                                 <Button
@@ -233,10 +240,10 @@ export default function UsersIndex({ users, filters }) {
                         <Pagination links={users.links} lastPage={users.last_page} className="mt-6" />
                     </div>
                 ) : (
-                    <div className="text-center py-12">
+                    <div className="py-12 text-center">
                         <Users className="mx-auto h-16 w-16 text-gray-400" />
-                        <h3 className="text-[var(--color-deep-blue)] mt-4 text-xl font-semibold">No users found</h3>
-                        <p className="text-[var(--color-brown)] mt-2">Get started by creating a new user</p>
+                        <h3 className="mt-4 text-xl font-semibold text-[var(--color-deep-blue)]">No users found</h3>
+                        <p className="mt-2 text-[var(--color-brown)]">Get started by creating a new user</p>
                         <Button
                             onClick={() => setIsCreateModalOpen(true)}
                             className="mt-6 bg-[var(--color-deep-blue)] text-white hover:bg-[var(--color-deep-blue)]/90"
@@ -260,7 +267,9 @@ export default function UsersIndex({ users, filters }) {
                 >
                     <div className="space-y-4">
                         <div>
-                            <Label htmlFor="name" className="text-[var(--color-deep-blue)]">Name</Label>
+                            <Label htmlFor="name" className="text-[var(--color-deep-blue)]">
+                                Name
+                            </Label>
                             <Input
                                 id="name"
                                 value={createForm.data.name}
@@ -270,7 +279,9 @@ export default function UsersIndex({ users, filters }) {
                             {createForm.errors.name && <p className="mt-1 text-sm text-red-600">{createForm.errors.name}</p>}
                         </div>
                         <div>
-                            <Label htmlFor="email" className="text-[var(--color-deep-blue)]">Email</Label>
+                            <Label htmlFor="email" className="text-[var(--color-deep-blue)]">
+                                Email
+                            </Label>
                             <Input
                                 id="email"
                                 type="email"
@@ -281,7 +292,9 @@ export default function UsersIndex({ users, filters }) {
                             {createForm.errors.email && <p className="mt-1 text-sm text-red-600">{createForm.errors.email}</p>}
                         </div>
                         <div>
-                            <Label htmlFor="password" className="text-[var(--color-deep-blue)]">Password</Label>
+                            <Label htmlFor="password" className="text-[var(--color-deep-blue)]">
+                                Password
+                            </Label>
                             <Input
                                 id="password"
                                 type="password"
@@ -293,7 +306,9 @@ export default function UsersIndex({ users, filters }) {
                         </div>
                         <div className="grid grid-cols-2 gap-4">
                             <div>
-                                <Label htmlFor="full_name" className="text-[var(--color-deep-blue)]">Full Name</Label>
+                                <Label htmlFor="full_name" className="text-[var(--color-deep-blue)]">
+                                    Full Name
+                                </Label>
                                 <Input
                                     id="full_name"
                                     value={createForm.data.full_name}
@@ -302,7 +317,9 @@ export default function UsersIndex({ users, filters }) {
                                 />
                             </div>
                             <div>
-                                <Label htmlFor="phone" className="text-[var(--color-deep-blue)]">Phone</Label>
+                                <Label htmlFor="phone" className="text-[var(--color-deep-blue)]">
+                                    Phone
+                                </Label>
                                 <Input
                                     id="phone"
                                     value={createForm.data.phone}
@@ -312,8 +329,13 @@ export default function UsersIndex({ users, filters }) {
                             </div>
                         </div>
                         <div>
-                            <Label htmlFor="is_active" className="text-[var(--color-deep-blue)]">Status</Label>
-                            <Select value={createForm.data.is_active ? 'active' : 'inactive'} onValueChange={(value) => createForm.setData('is_active', value === 'active')}>
+                            <Label htmlFor="is_active" className="text-[var(--color-deep-blue)]">
+                                Status
+                            </Label>
+                            <Select
+                                value={createForm.data.is_active ? 'active' : 'inactive'}
+                                onValueChange={(value) => createForm.setData('is_active', value === 'active')}
+                            >
                                 <SelectTrigger className="mt-1 border-gray-300">
                                     <SelectValue />
                                 </SelectTrigger>
@@ -340,7 +362,9 @@ export default function UsersIndex({ users, filters }) {
                 >
                     <div className="space-y-4">
                         <div>
-                            <Label htmlFor="edit_name" className="text-[var(--color-deep-blue)]">Name</Label>
+                            <Label htmlFor="edit_name" className="text-[var(--color-deep-blue)]">
+                                Name
+                            </Label>
                             <Input
                                 id="edit_name"
                                 value={editForm.data.name}
@@ -350,7 +374,9 @@ export default function UsersIndex({ users, filters }) {
                             {editForm.errors.name && <p className="mt-1 text-sm text-red-600">{editForm.errors.name}</p>}
                         </div>
                         <div>
-                            <Label htmlFor="edit_email" className="text-[var(--color-deep-blue)]">Email</Label>
+                            <Label htmlFor="edit_email" className="text-[var(--color-deep-blue)]">
+                                Email
+                            </Label>
                             <Input
                                 id="edit_email"
                                 type="email"
@@ -361,7 +387,9 @@ export default function UsersIndex({ users, filters }) {
                             {editForm.errors.email && <p className="mt-1 text-sm text-red-600">{editForm.errors.email}</p>}
                         </div>
                         <div>
-                            <Label htmlFor="edit_password" className="text-[var(--color-deep-blue)]">Password (leave blank to keep current)</Label>
+                            <Label htmlFor="edit_password" className="text-[var(--color-deep-blue)]">
+                                Password (leave blank to keep current)
+                            </Label>
                             <Input
                                 id="edit_password"
                                 type="password"
@@ -373,7 +401,9 @@ export default function UsersIndex({ users, filters }) {
                         </div>
                         <div className="grid grid-cols-2 gap-4">
                             <div>
-                                <Label htmlFor="edit_full_name" className="text-[var(--color-deep-blue)]">Full Name</Label>
+                                <Label htmlFor="edit_full_name" className="text-[var(--color-deep-blue)]">
+                                    Full Name
+                                </Label>
                                 <Input
                                     id="edit_full_name"
                                     value={editForm.data.full_name}
@@ -382,7 +412,9 @@ export default function UsersIndex({ users, filters }) {
                                 />
                             </div>
                             <div>
-                                <Label htmlFor="edit_phone" className="text-[var(--color-deep-blue)]">Phone</Label>
+                                <Label htmlFor="edit_phone" className="text-[var(--color-deep-blue)]">
+                                    Phone
+                                </Label>
                                 <Input
                                     id="edit_phone"
                                     value={editForm.data.phone}
@@ -392,8 +424,13 @@ export default function UsersIndex({ users, filters }) {
                             </div>
                         </div>
                         <div>
-                            <Label htmlFor="edit_is_active" className="text-[var(--color-deep-blue)]">Status</Label>
-                            <Select value={editForm.data.is_active ? 'active' : 'inactive'} onValueChange={(value) => editForm.setData('is_active', value === 'active')}>
+                            <Label htmlFor="edit_is_active" className="text-[var(--color-deep-blue)]">
+                                Status
+                            </Label>
+                            <Select
+                                value={editForm.data.is_active ? 'active' : 'inactive'}
+                                onValueChange={(value) => editForm.setData('is_active', value === 'active')}
+                            >
                                 <SelectTrigger className="mt-1 border-gray-300">
                                     <SelectValue />
                                 </SelectTrigger>

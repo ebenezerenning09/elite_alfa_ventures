@@ -1,15 +1,15 @@
-import { Head, Link, router, useForm } from '@inertiajs/react';
+import FormModal from '@/components/admin/FormModal';
 import AdminLayout from '@/components/admin/Layout';
+import StatusBadge from '@/components/admin/StatusBadge';
+import Pagination from '@/components/pagination';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { ShoppingBag, Eye, Search } from 'lucide-react';
-import StatusBadge from '@/components/admin/StatusBadge';
-import FormModal from '@/components/admin/FormModal';
-import { useState, useCallback, useEffect, useRef } from 'react';
 import { Label } from '@/components/ui/label';
-import Pagination from '@/components/pagination';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Head, Link, router, useForm } from '@inertiajs/react';
 import { debounce } from 'lodash';
+import { Eye, Search, ShoppingBag } from 'lucide-react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 export default function OrdersIndex({ orders, filters }) {
     const [isStatusModalOpen, setIsStatusModalOpen] = useState(false);
@@ -29,15 +29,19 @@ export default function OrdersIndex({ orders, filters }) {
     // Debounced search function
     const debouncedSearch = useCallback(
         debounce((query) => {
-            router.get(route('admin.orders.index'), {
-                ...filtersRef.current,
-                search: query,
-            }, {
-                preserveState: true,
-                preserveScroll: true,
-            });
+            router.get(
+                route('admin.orders.index'),
+                {
+                    ...filtersRef.current,
+                    search: query,
+                },
+                {
+                    preserveState: true,
+                    preserveScroll: true,
+                },
+            );
         }, 500),
-        []
+        [],
     );
 
     useEffect(() => {
@@ -63,13 +67,17 @@ export default function OrdersIndex({ orders, filters }) {
     };
 
     const handleFilter = (key, value) => {
-        router.get(route('admin.orders.index'), {
-            ...filters,
-            [key]: value,
-        }, {
-            preserveState: true,
-            preserveScroll: true,
-        });
+        router.get(
+            route('admin.orders.index'),
+            {
+                ...filters,
+                [key]: value,
+            },
+            {
+                preserveState: true,
+                preserveScroll: true,
+            },
+        );
     };
 
     const handleSearchChange = (e) => {
@@ -84,19 +92,19 @@ export default function OrdersIndex({ orders, filters }) {
 
             <div className="p-6">
                 <div className="mb-6">
-                    <h2 className="text-[var(--color-deep-blue)] text-2xl font-bold">Orders</h2>
+                    <h2 className="text-2xl font-bold text-[var(--color-deep-blue)]">Orders</h2>
                 </div>
 
                 {/* Filters */}
                 <div className="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-4">
                     <div className="relative">
-                        <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+                        <Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-gray-400" />
                         <Input
                             type="text"
                             placeholder="Search orders..."
                             value={searchQuery}
                             onChange={handleSearchChange}
-                            className="pl-10 border-gray-300"
+                            className="border-gray-300 pl-10"
                         />
                     </div>
                     <Select value={filters.status || 'all'} onValueChange={(value) => handleFilter('status', value)}>
@@ -134,28 +142,30 @@ export default function OrdersIndex({ orders, filters }) {
                         <table className="w-full border-collapse">
                             <thead>
                                 <tr className="border-b border-gray-200 bg-gray-50">
-                                    <th className="text-[var(--color-deep-blue)] p-3 text-left text-sm font-semibold">Order #</th>
-                                    <th className="text-[var(--color-deep-blue)] p-3 text-left text-sm font-semibold">Customer</th>
-                                    <th className="text-[var(--color-deep-blue)] p-3 text-left text-sm font-semibold">Amount</th>
-                                    <th className="text-[var(--color-deep-blue)] p-3 text-left text-sm font-semibold">Status</th>
-                                    <th className="text-[var(--color-deep-blue)] p-3 text-left text-sm font-semibold">Date</th>
-                                    <th className="text-[var(--color-deep-blue)] p-3 text-right text-sm font-semibold">Actions</th>
+                                    <th className="p-3 text-left text-sm font-semibold text-[var(--color-deep-blue)]">#</th>
+                                    <th className="p-3 text-left text-sm font-semibold text-[var(--color-deep-blue)]">Order #</th>
+                                    <th className="p-3 text-left text-sm font-semibold text-[var(--color-deep-blue)]">Customer</th>
+                                    <th className="p-3 text-left text-sm font-semibold text-[var(--color-deep-blue)]">Amount</th>
+                                    <th className="p-3 text-left text-sm font-semibold text-[var(--color-deep-blue)]">Status</th>
+                                    <th className="p-3 text-left text-sm font-semibold text-[var(--color-deep-blue)]">Date</th>
+                                    <th className="p-3 text-right text-sm font-semibold text-[var(--color-deep-blue)]">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {orders.data.map((order) => (
+                                {orders.data.map((order, index) => (
                                     <tr key={order.id} className="border-b border-gray-200 hover:bg-gray-50">
+                                        <td className="p-3 text-sm text-[var(--color-brown)]">{orders.from ? orders.from + index : index + 1}</td>
                                         <td className="p-3">
-                                            <div className="text-[var(--color-deep-blue)] font-medium">#{order.order_number}</div>
+                                            <div className="font-medium text-[var(--color-deep-blue)]">#{order.order_number}</div>
                                         </td>
                                         <td className="p-3 text-[var(--color-brown)]">{order.user?.name || order.user?.email || 'N/A'}</td>
-                                        <td className="p-3 text-[var(--color-deep-blue)] font-semibold">₵{Number(order.total_amount).toLocaleString()}</td>
+                                        <td className="p-3 font-semibold text-[var(--color-deep-blue)]">
+                                            ₵{Number(order.total_amount).toLocaleString()}
+                                        </td>
                                         <td className="p-3">
                                             <StatusBadge status={order.status} />
                                         </td>
-                                        <td className="p-3 text-[var(--color-brown)] text-sm">
-                                            {new Date(order.created_at).toLocaleDateString()}
-                                        </td>
+                                        <td className="p-3 text-sm text-[var(--color-brown)]">{new Date(order.created_at).toLocaleDateString()}</td>
                                         <td className="p-3">
                                             <div className="flex justify-end gap-2">
                                                 <Link href={route('admin.orders.show', order.id)}>
@@ -181,9 +191,9 @@ export default function OrdersIndex({ orders, filters }) {
                         <Pagination links={orders.links} lastPage={orders.last_page} className="mt-6" />
                     </div>
                 ) : (
-                    <div className="text-center py-12">
+                    <div className="py-12 text-center">
                         <ShoppingBag className="mx-auto h-16 w-16 text-gray-400" />
-                        <h3 className="text-[var(--color-deep-blue)] mt-4 text-xl font-semibold">No orders found</h3>
+                        <h3 className="mt-4 text-xl font-semibold text-[var(--color-deep-blue)]">No orders found</h3>
                     </div>
                 )}
 
@@ -199,7 +209,9 @@ export default function OrdersIndex({ orders, filters }) {
                     isSubmitting={statusForm.processing}
                 >
                     <div>
-                        <Label htmlFor="status" className="text-[var(--color-deep-blue)]">Status</Label>
+                        <Label htmlFor="status" className="text-[var(--color-deep-blue)]">
+                            Status
+                        </Label>
                         <Select value={statusForm.data.status} onValueChange={(value) => statusForm.setData('status', value)}>
                             <SelectTrigger className="mt-1 border-gray-300">
                                 <SelectValue />

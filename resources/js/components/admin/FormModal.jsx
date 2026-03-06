@@ -1,8 +1,17 @@
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { LoaderCircle } from 'lucide-react';
 
-export default function FormModal({ isOpen, onClose, title, children, onSubmit, submitLabel = 'Save', isSubmitting = false, submitButtonClass = '' }) {
+export default function FormModal({
+    isOpen,
+    onClose,
+    title,
+    children,
+    onSubmit,
+    submitLabel = 'Save',
+    isSubmitting = false,
+    submitButtonClass = '',
+}) {
     const handleClose = (open) => {
         if (!open && !isSubmitting) {
             onClose();
@@ -11,8 +20,8 @@ export default function FormModal({ isOpen, onClose, title, children, onSubmit, 
 
     return (
         <Dialog open={isOpen} onOpenChange={handleClose}>
-            <DialogContent 
-                className="bg-white text-gray-900 border-gray-200 sm:max-w-2xl max-h-[98vh] p-0" 
+            <DialogContent
+                className="max-h-[98vh] border-gray-200 bg-white p-0 text-gray-900 sm:max-w-2xl"
                 onInteractOutside={(e) => {
                     if (!isSubmitting) {
                         e.preventDefault();
@@ -26,17 +35,16 @@ export default function FormModal({ isOpen, onClose, title, children, onSubmit, 
                     }
                 }}
             >
-                <div className="flex flex-col h-full max-h-[98vh]">
+                <div className="flex h-full max-h-[98vh] flex-col">
                     <DialogHeader className="flex-shrink-0 px-6 pt-6 pb-4">
-                        <DialogTitle className="text-[var(--color-deep-blue)] text-xl font-bold">{title}</DialogTitle>
+                        <DialogTitle className="text-xl font-bold text-[var(--color-deep-blue)]">{title}</DialogTitle>
+                        <DialogDescription className="sr-only">Form dialog content for {title}</DialogDescription>
                     </DialogHeader>
 
-                    <form onSubmit={onSubmit} className="flex flex-col flex-1 min-h-0 overflow-hidden">
-                        <div className="flex-1 overflow-y-auto px-6 space-y-4">
-                            {children}
-                        </div>
+                    <form onSubmit={onSubmit} className="flex min-h-0 flex-1 flex-col overflow-hidden">
+                        <div className="flex-1 space-y-4 overflow-y-auto px-6">{children}</div>
 
-                        <DialogFooter className="flex-shrink-0 gap-2 sm:gap-0 px-6 py-4 border-t border-gray-200 bg-white">
+                        <DialogFooter className="flex-shrink-0 gap-2 border-t border-gray-200 bg-white px-6 py-4 sm:gap-0">
                             <Button
                                 type="button"
                                 variant="outline"

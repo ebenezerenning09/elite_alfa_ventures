@@ -22,7 +22,7 @@ class OrderController extends Controller
     }
     public function index(Request $request)
     {
-        $query = Auth::user()->orders()->with(['orderItems.product.images', 'payment', 'shippingAddress']);
+        $query = Auth::user()->orders()->with(['orderItems.product.images', 'payment']);
 
         // Filter by status if provided
         if ($request->has('status') && $request->status !== 'all') {
@@ -44,7 +44,7 @@ class OrderController extends Controller
     public function show($id)
     {
         $order = Auth::user()->orders()
-            ->with(['orderItems.product.images', 'payment', 'shippingAddress'])
+            ->with(['orderItems.product.images', 'payment'])
             ->findOrFail($id);
 
         return Inertia::render('account/orders/show', [
