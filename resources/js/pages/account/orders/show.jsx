@@ -1,8 +1,21 @@
 import AccountLayout from '@/layouts/account-layout';
-import { Head, Link } from '@inertiajs/react';
+import useCartStore from '@/stores/cart-store';
+import { Head, Link, usePage } from '@inertiajs/react';
 import { CreditCard, MapPin, Package } from 'lucide-react';
+import { useEffect } from 'react';
 
 export default function OrderShow({ order }) {
+    const { flash } = usePage().props;
+    const clearCart = useCartStore((state) => state.clearCart);
+    const cartItems = useCartStore((state) => state.cartItems);
+
+    useEffect(() => {
+        // Clear cart if we just came from a successful payment
+        if (flash?.success && cartItems.length > 0) {
+            clearCart();
+        }
+    }, [flash?.success, cartItems.length, clearCart]);
+
     const getStatusColor = (status) => {
         const colors = {
             pending: 'bg-yellow-100 text-yellow-800',
