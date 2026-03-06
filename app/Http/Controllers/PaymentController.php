@@ -111,11 +111,12 @@ class PaymentController extends Controller
                 'processed_at' => null,
             ]);
 
-            // Prepare Paystack data
-            // Note: This will work once Paystack package is properly installed
-            // For now, we'll create the structure
+            // Paystack fee included for user
+             $serviceFee = 0.02 * $totalAmount;
+             $payableAmount = ceil(($totalAmount + $serviceFee) * 100);
+
             $paystackData = [
-                'amount' => $totalAmount * 100, // Convert to pesewas
+                'amount' => $payableAmount, 
                 'currency' => 'GHS',
                 'email' => $user->email,
                 'reference' => $reference,
