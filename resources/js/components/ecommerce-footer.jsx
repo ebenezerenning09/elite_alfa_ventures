@@ -135,7 +135,7 @@ export function EcommerceFooter() {
                             <li className="flex items-center gap-3">
                                 <Phone className="h-5 w-5 flex-shrink-0 text-[var(--color-deep-blue)]" />
                                 <a
-                                    href="tel:+233241234567"
+                                    href="tel:+233551978928"
                                     className="text-sm text-[var(--color-brown)] transition-colors hover:text-[var(--color-deep-blue)]"
                                 >
                                     +233 55 197 8928
