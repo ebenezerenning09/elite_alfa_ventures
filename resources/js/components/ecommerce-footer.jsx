@@ -1,7 +1,6 @@
 import { Link } from '@inertiajs/react';
-import { Facebook, Instagram, Mail, Phone, MapPin } from 'lucide-react';
+import { Facebook, Instagram, Mail, MapPin, Phone } from 'lucide-react';
 import { Logo } from './logo';
-
 
 export function EcommerceFooter() {
     return (
@@ -14,7 +13,7 @@ export function EcommerceFooter() {
                             <Logo imgClassName="h-10" />
                         </Link>
 
-                        <p className="text-[var(--color-brown)] mb-4 text-sm leading-relaxed">
+                        <p className="mb-4 text-sm leading-relaxed text-[var(--color-brown)]">
                             Your trusted destination for premium luxury items. We bring you the finest watches, jewelry, bags, and accessories.
                         </p>
                         <div className="flex gap-4">
@@ -41,32 +40,45 @@ export function EcommerceFooter() {
 
                     {/* Quick Links */}
                     <div>
-                        <h3 className="text-[var(--color-deep-blue)] mb-4 text-lg font-bold">
-                            Quick Links
-                        </h3>
+                        <h3 className="mb-4 text-lg font-bold text-[var(--color-deep-blue)]">Quick Links</h3>
                         <ul className="space-y-2">
                             <li>
-                                <Link href={route('home')} className="text-[var(--color-brown)] text-sm transition-colors hover:text-[var(--color-deep-blue)]">
+                                <Link
+                                    href={route('home')}
+                                    className="text-sm text-[var(--color-brown)] transition-colors hover:text-[var(--color-deep-blue)]"
+                                >
                                     Home
                                 </Link>
                             </li>
                             <li>
-                                <Link href={route('shop.index')} className="text-[var(--color-brown)] text-sm transition-colors hover:text-[var(--color-deep-blue)]">
+                                <Link
+                                    href={route('shop.index')}
+                                    className="text-sm text-[var(--color-brown)] transition-colors hover:text-[var(--color-deep-blue)]"
+                                >
                                     Shop
                                 </Link>
                             </li>
                             <li>
-                                <Link href={route('about')} className="text-[var(--color-brown)] text-sm transition-colors hover:text-[var(--color-deep-blue)]">
+                                <Link
+                                    href={route('about')}
+                                    className="text-sm text-[var(--color-brown)] transition-colors hover:text-[var(--color-deep-blue)]"
+                                >
                                     About Us
                                 </Link>
                             </li>
                             <li>
-                                <Link href={route('contact.index')} className="text-[var(--color-brown)] text-sm transition-colors hover:text-[var(--color-deep-blue)]">
+                                <Link
+                                    href={route('contact.index')}
+                                    className="text-sm text-[var(--color-brown)] transition-colors hover:text-[var(--color-deep-blue)]"
+                                >
                                     Contact
                                 </Link>
                             </li>
                             <li>
-                                <Link href={route('faq')} className="text-[var(--color-brown)] text-sm transition-colors hover:text-[var(--color-deep-blue)]">
+                                <Link
+                                    href={route('faq')}
+                                    className="text-sm text-[var(--color-brown)] transition-colors hover:text-[var(--color-deep-blue)]"
+                                >
                                     FAQ
                                 </Link>
                             </li>
@@ -75,27 +87,37 @@ export function EcommerceFooter() {
 
                     {/* Customer Service */}
                     <div>
-                        <h3 className="text-[var(--color-deep-blue)] mb-4 text-lg font-bold">
-                            Policy & Terms
-                        </h3>
+                        <h3 className="mb-4 text-lg font-bold text-[var(--color-deep-blue)]">Policy & Terms</h3>
                         <ul className="space-y-2">
                             <li>
-                                <Link href={route('legal.terms')} className="text-[var(--color-brown)] text-sm transition-colors hover:text-[var(--color-deep-blue)]">
+                                <Link
+                                    href={route('legal.terms')}
+                                    className="text-sm text-[var(--color-brown)] transition-colors hover:text-[var(--color-deep-blue)]"
+                                >
                                     Terms & Conditions
                                 </Link>
                             </li>
                             <li>
-                                <Link href={route('legal.privacy')} className="text-[var(--color-brown)] text-sm transition-colors hover:text-[var(--color-deep-blue)]">
+                                <Link
+                                    href={route('legal.privacy')}
+                                    className="text-sm text-[var(--color-brown)] transition-colors hover:text-[var(--color-deep-blue)]"
+                                >
                                     Privacy Policy
                                 </Link>
                             </li>
                             <li>
-                                <Link href={route('legal.acceptable-use')} className="text-[var(--color-brown)] text-sm transition-colors hover:text-[var(--color-deep-blue)]">
+                                <Link
+                                    href={route('legal.acceptable-use')}
+                                    className="text-sm text-[var(--color-brown)] transition-colors hover:text-[var(--color-deep-blue)]"
+                                >
                                     Acceptable Use
                                 </Link>
                             </li>
                             <li>
-                                <Link href={route('legal.shipping-returns')} className="text-[var(--color-brown)] text-sm transition-colors hover:text-[var(--color-deep-blue)]">
+                                <Link
+                                    href={route('legal.shipping-returns')}
+                                    className="text-sm text-[var(--color-brown)] transition-colors hover:text-[var(--color-deep-blue)]"
+                                >
                                     Shipping & Returns
                                 </Link>
                             </li>
@@ -104,30 +126,26 @@ export function EcommerceFooter() {
 
                     {/* Contact Info */}
                     <div>
-                        <h3 className="text-[var(--color-deep-blue)] mb-4 text-lg font-bold">
-                            Contact Us
-                        </h3>
+                        <h3 className="mb-4 text-lg font-bold text-[var(--color-deep-blue)]">Contact Us</h3>
                         <ul className="space-y-3">
                             <li className="flex items-start gap-3">
                                 <MapPin className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--color-deep-blue)]" />
-                                <span className="text-[var(--color-brown)] text-sm">
-                                    Kumasi, KNUST, Ghana
-                                </span>
+                                <span className="text-sm text-[var(--color-brown)]">Kumasi, KNUST, Ghana</span>
                             </li>
                             <li className="flex items-center gap-3">
                                 <Phone className="h-5 w-5 flex-shrink-0 text-[var(--color-deep-blue)]" />
                                 <a
                                     href="tel:+233241234567"
-                                    className="text-[var(--color-brown)] text-sm transition-colors hover:text-[var(--color-deep-blue)]"
+                                    className="text-sm text-[var(--color-brown)] transition-colors hover:text-[var(--color-deep-blue)]"
                                 >
-                                    +233 24 123 4567
+                                    +233 55 197 8928
                                 </a>
                             </li>
                             <li className="flex items-center gap-3">
                                 <Mail className="h-5 w-5 flex-shrink-0 text-[var(--color-deep-blue)]" />
                                 <a
                                     href="mailto:info@elitealfaventures.com"
-                                    className="text-[var(--color-brown)] text-sm transition-colors hover:text-[var(--color-deep-blue)]"
+                                    className="text-sm text-[var(--color-brown)] transition-colors hover:text-[var(--color-deep-blue)]"
                                 >
                                     info@elitealfaventures.com
                                 </a>
@@ -137,9 +155,7 @@ export function EcommerceFooter() {
                 </div>
 
                 <div className="mt-8 border-t border-gray-200 pt-8 text-center">
-                    <p className="text-[var(--color-brown)] text-sm">
-                        © {new Date().getFullYear()} Elite Alfa Ventures. All rights reserved.
-                    </p>
+                    <p className="text-sm text-[var(--color-brown)]">© {new Date().getFullYear()} Elite Alfa Ventures. All rights reserved.</p>
                 </div>
             </div>
         </footer>
